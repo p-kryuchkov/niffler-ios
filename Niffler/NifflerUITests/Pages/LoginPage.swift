@@ -49,7 +49,7 @@ class LoginPage: BasePage {
         }
     }
 
-    private func pressLoginButton() {
+     func pressLoginButton() {
         XCTContext.runActivity(named: "Жму кнопку логина") { _ in
             XCTAssertTrue(loginButton.waitForExistence(timeout: 5), "Не найдена кнопка loginButton")
             loginButton.tap()

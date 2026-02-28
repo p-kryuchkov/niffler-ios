@@ -25,6 +25,8 @@ class RegisterPage: BasePage {
             input(password: password)
             input(confirmPassword: password)
             pressSignUpButton()
+            pressSuccessRegisterButton()
+        
         }
         return self
     }
@@ -50,6 +52,7 @@ class RegisterPage: BasePage {
             XCTAssertTrue(confirmPasswordField.waitForExistence(timeout: 5))
             confirmPasswordField.tap()
             confirmPasswordField.typeText(confirmPassword)
+            app.keyboards.buttons["Return"].tap()
         }
     }
 
@@ -57,5 +60,25 @@ class RegisterPage: BasePage {
         XCTContext.runActivity(named: "Жму кнопку Sign Up") { _ in
             app.buttons["Sign Up"].tap()
         }
+    }
+    
+    private func pressSuccessRegisterButton() {
+        XCTContext.runActivity(named: "Жму кнопку подтверждения регистрации") { _ in
+            waitSuccessRegisterButton()
+            app.alerts["Congratulations!"].buttons["Log in"].tap()
+        }
+    }
+    
+    
+    @discardableResult
+    func waitSuccessRegisterButton(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let isFound = app.alerts["Congratulations!"].buttons["Log in"]
+            .waitForExistence(timeout: 10)
+        
+        XCTAssertTrue(isFound,
+                      "Не дождались кнопки подтверждения логина",
+                      file: file, line: line)
+        
+        return self
     }
 }
