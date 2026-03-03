@@ -28,6 +28,22 @@ class RegisterPage: BasePage {
         }
         return self
     }
+    
+    func assertIsUsernameEquals(expected: String, file: StaticString = #filePath, line: UInt = #line) {
+        XCTContext.runActivity(named: "Проверяю логин = \(expected)") { _ in
+            XCTAssertTrue(usernameField.waitForExistence(timeout: 5), "Не найден userNameTextField", file: file, line: line)
+            let value = usernameField.value as? String
+            XCTAssertEqual(value, expected, file: file, line: line)
+        }
+    }
+    
+    func assertIsPasswordNotNull(file: StaticString = #filePath, line: UInt = #line) {
+        XCTContext.runActivity(named: "Проверяю, что пароль введён") { _ in
+            XCTAssertTrue(passwordField.waitForExistence(timeout: 5), "Не найден passwordTextField", file: file, line: line)
+            let value = (passwordField.value as? String) ?? ""
+            XCTAssertFalse(value.isEmpty, "Пароль пустой", file: file, line: line)
+        }
+    }
 
     private func input(login: String) {
         XCTContext.runActivity(named: "Ввожу логин \(login)") { _ in

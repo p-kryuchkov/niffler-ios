@@ -29,6 +29,16 @@ class LoginPage: BasePage {
         }
         return self
     }
+    
+    @discardableResult
+    func inputWithoutLogin(login: String, password: String) -> Self {
+        XCTContext.runActivity(named: "Ввожу логин и пароль без нажатия на кнопку логина \(login), \(password)") { _ in
+            input(login: login)
+            input(password: password)
+            app.keyboards.buttons["Return"].tap()
+        }
+        return self
+    }
 
     private func input(login: String) {
         XCTContext.runActivity(named: "Ввожу логин \(login)") { _ in
@@ -43,9 +53,6 @@ class LoginPage: BasePage {
             XCTAssertTrue(passwordField.waitForExistence(timeout: 5), "Не найден passwordTextField")
             passwordField.tap()
             passwordField.typeText(password)
-
-            // Если у тебя включён interruption monitor в setUp(), этот tap поможет его триггернуть
-            app.tap()
         }
     }
 
