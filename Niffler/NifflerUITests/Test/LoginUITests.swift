@@ -6,7 +6,7 @@ final class LoginUITests: TestCase {
         launchAppWithoutLogin()
 
         // Act
-        loginPage.input(login: "stage", password: "12345")
+        loginPage.input(login: "TestDefaultUser", password: "12345")
         
         // Assert
         spendsPage.assertIsSpendsViewAppeared()
