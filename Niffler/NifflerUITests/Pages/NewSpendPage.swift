@@ -17,7 +17,11 @@ class NewSpendPage: BasePage {
     
     func selectCategory() -> Self {
         app.buttons["Select category"].tap()
-        app.buttons["Рыбалка"].tap() // TODO: Bug
+        if app.alerts["Add category"].exists{
+            app.alerts["Add category"].textFields["Name"].typeText("Рыбалка")
+            app.alerts["Add category"].buttons["Add"].tap()
+        }
+        else {app.buttons["Рыбалка"].tap()} // TODO: Bug
         return self
     }
     

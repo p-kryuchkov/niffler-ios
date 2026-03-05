@@ -3,7 +3,7 @@ import XCTest
 final class RegisterUITests: TestCase {
     
     func test_RegisterSuccess() throws {
-        
+        // Arrange
         launchAppWithoutLogin()
 
         // Act
